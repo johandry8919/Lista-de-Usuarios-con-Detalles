@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Fotter from "./components/layout/Fotter";
+import Swal from 'sweetalert2'
 
 function App() {
   const [lisUsuario, setLisUsuario] = useState([]);
@@ -36,10 +37,12 @@ function App() {
 
   // Componente funcional para mostrar los detalles de un usuario en el modal
   const Verdetalles = () => {
+
+  
     return (
       <>
-        <div className="cont text-center">
-          <div className="modalDetalles card">
+        <div className="cont ">
+          <div className="modalDetalles card animate__animated animate__fadeInDown">
             <div className="card-title   ">
               <h2 className="">Detalle de usuario</h2>
               <button
@@ -57,6 +60,7 @@ function App() {
             </div>
           </div>
         </div>
+
       </>
     );
   };
@@ -66,8 +70,8 @@ function App() {
     let valor = cardt;
     return (
       <>
-        <div className="col-12 col-gl-6 col-md-4 mt-3">
-          <div className="card">
+        <div className="col-12 col-gl-6 col-md-4 mt-3 ">
+          <div className="card ">
             <div className="card-header">
               <h6>Nombre: {valor.name}</h6>
             </div>
@@ -100,12 +104,12 @@ function App() {
   // Renderiza la lista de usuarios y el modal de detalles si corresponde
   return (
     <>
-      <main className="container-fluid">
+      <main className="container">
         <header className="heade">
-          <h1 className="text-center">Lista de usuarios jsonplaceholder</h1>
+          <h1 className="text-center animate__animated animate__fadeInLeft">Lista del usuarios jsonplaceholder</h1>
         </header>
 
-        <div className="row ">
+        <div className="row animate__animated animate__fadeIn ">
           {lisUsuario.map((cardt) => (
             <Card key={cardt.id} cardt={cardt} />
           ))}
