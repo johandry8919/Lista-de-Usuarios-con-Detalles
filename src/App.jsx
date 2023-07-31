@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Fotter from "./components/layout/Fotter";
 import Swal from 'sweetalert2'
+import Verdetalles from "./components/Verdetalles";
 
 function App() {
   const [lisUsuario, setLisUsuario] = useState([]);
-  const [detalle, setDetalle] = useState([]);
   const [detallemodale, setDetallemodale] = useState(false);
+  const [detalle, setDetalle] = useState([]);
 
   // Función para obtener la lista de usuarios desde la API
   const fectUsuario = async () => {
@@ -20,8 +21,7 @@ function App() {
       console.log(error);
     }
   };
-
-  // Función para obtener el detalle de un usuario en particular
+// Función para obtener el detalle de un usuario en particular
   const detalleUsaer = async (id) => {
     try {
       const detalle = await fetch(
@@ -35,35 +35,15 @@ function App() {
     }
   };
 
-  // Componente funcional para mostrar los detalles de un usuario en el modal
-  const Verdetalles = () => {
+    // Se llama a la función para obtener la lista de usuarios cuando se carga la página
+    useEffect(() => {
+    fectUsuario();
+  }, []);
 
-  
-    return (
-      <>
-        <div className="cont ">
-          <div className="modalDetalles card animate__animated animate__fadeInDown">
-            <div className="card-title   ">
-              <h2 className="">Detalle de usuario</h2>
-              <button
-                className="buttone text-end "
-                onClick={() => setDetallemodale()} // Cierra el modal
-              >
-                x
-              </button>
-            </div>
-            <div className="card-body">
-              <p>nombre{detalle.name}</p>
-              <p>apellido{detalle.username}</p>
-              <p>website:{detalle.website}</p>
-              <p>Telefono:{detalle.phone}</p>
-            </div>
-          </div>
-        </div>
 
-      </>
-    );
-  };
+
+
+
 
   // Componente funcional para renderizar la tarjeta de cada usuario
   const Card = ({ cardt }) => {
@@ -76,13 +56,9 @@ function App() {
               <h6>Nombre: {valor.name}</h6>
             </div>
             <div className="card-body">
-              <ul className="">
-                <li className="nav-link text-dark">
-                  Apellido:{valor.username}
-                </li>
-                <li className="nav-link text-dark">Email:{valor.email}</li>
-              </ul>
-
+              <p> Apellido:{valor.username}</p>
+              <p>Email:{valor.email}</p>
+             
               <button
                 onClick={() => detalleUsaer(valor.id)} // Muestra los detalles del usuario
                 className="btn btn-info w-100"
@@ -96,17 +72,13 @@ function App() {
     );
   };
 
-  // Se llama a la función para obtener la lista de usuarios cuando se carga la página
-  useEffect(() => {
-    fectUsuario();
-  }, []);
 
   // Renderiza la lista de usuarios y el modal de detalles si corresponde
   return (
     <>
       <main className="container">
         <header className="heade">
-          <h1 className="text-center animate__animated animate__fadeInLeft">Lista del usuarios jsonplaceholder</h1>
+          <h1 className="text-center animate__animated animate__fadeInLeft text-info">Lista del usuarios jsonplaceholder</h1>
         </header>
 
         <div className="row animate__animated animate__fadeIn ">
@@ -115,7 +87,7 @@ function App() {
           ))}
         </div>
 
-        {detallemodale && <Verdetalles />} {/* Renderiza el modal si detallemodale es true */}
+        {detallemodale && <Verdetalles detalle={detalle} />} {/* Renderiza el modal si detallemodale es true */}
 
         <Fotter />
       </main>
